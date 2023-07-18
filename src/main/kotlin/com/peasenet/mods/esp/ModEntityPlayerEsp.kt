@@ -19,6 +19,8 @@
  */
 package com.peasenet.mods.esp
 
+import com.peasenet.main.Settings
+import com.peasenet.config.EspConfig
 import com.peasenet.settings.SettingBuilder
 import com.peasenet.util.RenderUtils
 import com.peasenet.util.event.data.EntityRender
@@ -36,13 +38,13 @@ class ModEntityPlayerEsp : EspMod(
     "playeresp"
 ), EntityRenderListener {
     init {
-//        val colorSetting = ColorSetting("gavinsmod.settings.esp.player.color", espConfig.playerColor)
+//        val colorSetting = ColorSetting("gavinsmod.settings.esp.player.color", config.playerColor)
 //        colorSetting.setCallback {
-//            espConfig.playerColor = colorSetting.color
+//            config.playerColor = colorSetting.color
 //        }
         val colorSetting = SettingBuilder()
             .setTitle("gavinsmod.settings.esp.player.color")
-            .setColor(espConfig.playerColor)
+            .setColor(config.playerColor)
             .buildColorSetting()
         addSetting(colorSetting)
     }
@@ -60,6 +62,12 @@ class ModEntityPlayerEsp : EspMod(
     override fun onEntityRender(er: EntityRender) {
         if (er.entity !is PlayerEntity || er.buffer == null) return
         val box = RenderUtils.getEntityBox(er.delta, er.entity)
-        RenderUtils.drawBox(er.stack, er.buffer, box, espConfig.playerColor, espConfig.alpha)
+        RenderUtils.drawBox(er.stack, er.buffer, box, config.playerColor, config.alpha)
+    }
+    companion object {
+        private val config: EspConfig
+        get() {
+            return Settings.getConfig<EspConfig>("esp")
+        }
     }
 }
