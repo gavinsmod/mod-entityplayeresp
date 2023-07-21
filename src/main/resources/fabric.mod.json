@@ -16,9 +16,6 @@
       "com.peasenet.mod.EntityPlayerEspMod"
     ]
   },
-  "mixins": [
-    "gem-entityplayeresp.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "gemclient-core": ">=1.0.2",
